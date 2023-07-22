@@ -1,5 +1,6 @@
 package com.enigma.procurement.entity;
 
+import com.fasterxml.jackson.annotation.JacksonInject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,11 @@ public class Order {
     @Column(name = "trans_date")
     private LocalDateTime transDate;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<OrderDetail> orderDetails;
+
 }
