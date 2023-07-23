@@ -1,6 +1,8 @@
 package com.enigma.procurement.service;
 
 import com.enigma.procurement.entity.Vendor;
+import com.enigma.procurement.model.request.VendorRequest;
+import com.enigma.procurement.model.response.VendorResponse;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public interface VendorService {
 
     List<Vendor> getAll();
 
-    Vendor update(Vendor vendor);
+    VendorResponse update(VendorRequest vendor);
 
     void deleteById(String id);
 }

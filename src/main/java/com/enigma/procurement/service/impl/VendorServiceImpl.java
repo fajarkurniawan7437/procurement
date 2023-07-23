@@ -1,9 +1,13 @@
 package com.enigma.procurement.service.impl;
 
+import com.enigma.procurement.entity.Address;
 import com.enigma.procurement.entity.Vendor;
+import com.enigma.procurement.model.request.VendorRequest;
+import com.enigma.procurement.model.response.VendorResponse;
 import com.enigma.procurement.repository.VendorRepository;
 import com.enigma.procurement.service.VendorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -37,11 +41,28 @@ public class VendorServiceImpl implements VendorService {
     }
 
     @Override
-    public Vendor update(Vendor vendor) {
-        Vendor currentVendor = getById(vendor.getId());
+    public VendorResponse update(VendorRequest vendor) {
+        Vendor currentVendor = getById(vendor.getVendorId());
 
         if (currentVendor != null) {
-            return vendorRepository.save(vendor);
+            currentVendor.setName(vendor.getVendorName());
+            currentVendor.setMobilePhone(vendor.getMobilePhone());
+
+            Address existingAddress = currentVendor.getAddress();
+
+            existingAddress.setCity(vendor.getAddress().getCity());
+            existingAddress.setStreet(vendor.getAddress().getStreet());
+            existingAddress.setProvince(vendor.getAddress().getProvince());
+
+            Vendor updatedVendor = vendorRepository.save(currentVendor);
+
+            VendorResponse vendorResponse = VendorResponse.builder()
+                    .vendorId(updatedVendor.getId())
+                    .name(updatedVendor.getName())
+                    .mobilePhone(updatedVendor.getMobilePhone())
+                    .build();
+
+            return vendorResponse;
         }
 
         return null;

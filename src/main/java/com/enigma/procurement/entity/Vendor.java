@@ -28,6 +28,9 @@ public class Vendor {
     @Column(name = "mobile_phone", unique = true)
     private String mobilePhone;
 
+    @Column(name = "email", unique = true)
+    private String email;
+
     @OneToOne(targetEntity = Address.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "address_id")
     private Address address;
@@ -48,4 +51,8 @@ public class Vendor {
     private void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    @OneToOne
+    @JoinColumn(name = "user_credential_id")
+    private UserCrendential userCredential;
 }

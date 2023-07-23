@@ -28,8 +28,8 @@ public class Order {
     private LocalDateTime transDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "vendor_id")
-    private Vendor vendor;
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<OrderDetail> orderDetails;
