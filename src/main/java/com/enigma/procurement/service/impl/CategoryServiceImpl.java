@@ -31,4 +31,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
     }
+
+    @Override
+    public void deleteById(String id) {
+        Category category = getById(id);
+        categoryRepository.delete(category);
+    }
 }

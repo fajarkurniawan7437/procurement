@@ -72,16 +72,4 @@ public class Product {
     @LastModifiedBy
     private String updatedBy;
 
-//    private static int lastCodeCounter = 0;
-//
-//    @PrePersist
-//    private void prePersist() {
-//        this.createdAt = LocalDateTime.now();
-//        this.updatedAt = LocalDateTime.now();
-//    }
-//
-//    @PreUpdate
-//    private void preUpdate() {
-//        this.updatedAt = LocalDateTime.now();
-
 }

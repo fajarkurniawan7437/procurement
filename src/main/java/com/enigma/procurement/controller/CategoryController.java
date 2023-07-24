@@ -43,4 +43,16 @@ public class CategoryController {
                         .build());
     }
 
+
+    @DeleteMapping(path = "/{id}")
+    @PreAuthorize("hasRole('VENDOR') and @userSecurity.checkVendor(authentication, #id)")
+    public ResponseEntity<?> deleteCategory(@PathVariable String id) {
+        categoryService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CommonResponse.<String>builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Successfully delete category")
+                        .build());
+    }
+
 }
